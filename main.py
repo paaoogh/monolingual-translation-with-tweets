@@ -4,6 +4,7 @@ import retrieve
 import read_info
 
 if __name__ == 'main':
+    print("hi")
     gobernadoras, gobernadores = read_info.read_users('usuarios.csv')
 
     print("Starting with Gobernadoras")
