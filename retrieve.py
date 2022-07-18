@@ -31,7 +31,7 @@ def get_followers(username): #returns list of followers of a username
 def replies_to_file(file,filename,encoding = 'utf-8'):
     data = pd.DataFrame()
     for i in file.index:
-        print("Retrieving replies to: "+str(i))
+        print("Retrieving replies to: "+str(file.loc[i][2]))
         date_from = file.loc[i][4]
         username = file.loc[i][1:] #quitando el @
         data = data.append(get_replies(date_from, username))
