@@ -33,7 +33,7 @@ def replies_to_file(file,filename,encoding = 'utf-8'):
     for i in file.index:
         print("Retrieving replies to: "+str(file.loc[i][2]))
         date_from = file.loc[i][4]
-        username = file.loc[i][1:] #quitando el @
+        username = file.loc[i][2][1:] #quitando el @
         data = data.append(get_replies(date_from, username))
 
     data.to_csv(filename, encoding=encoding)
