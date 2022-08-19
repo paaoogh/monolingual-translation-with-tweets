@@ -5,6 +5,7 @@
 import retrieve
 import read_info
 import pandas as pd
+import twint as tw
 
 secretarias, secretarios = read_info.read_users('usuarios.csv')
 print("Starting with Secretarias")
