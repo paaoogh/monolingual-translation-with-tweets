@@ -11,5 +11,5 @@ print("Starting with Secretarias")
 data_gm = retrieve.replies_to_file(secretarias,"secretarias.csv")
 
 print("Starting with Secretrarios")
-data_gh = retrieve.replies_to_file(gobernadores,"secretarios.csv")
+data_gh = retrieve.replies_to_file(secretarios,"secretarios.csv")
 
