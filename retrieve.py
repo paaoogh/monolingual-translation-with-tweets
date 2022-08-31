@@ -37,7 +37,7 @@ def replies_to_file(file,filename,encoding = 'utf-8'):
     missing_files = pd.DataFrame()
     for i in file.index:
         try:
-            print("Retrieving replies to: "+str(file.loc[i][2]))
+            print("Retrieving replies to: "+str(file.loc[i][0]))
             date_from = file.loc[i][4]
             username = file.loc[i][2][1:] #quitando el @
             data = data.append(get_replies(date_from, username))
