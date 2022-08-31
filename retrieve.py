@@ -7,6 +7,10 @@ import nest_asyncio
 import pandas as pd
 import read_info
 
+missing_files = pd.DataFrame()
+
+
+
 def get_replies(date_since, username):#returns DataFrame of a user
     replies = tw.Config()
     replies.Since = date_since
@@ -30,11 +34,16 @@ def get_followers(username): #returns list of followers of a username
 
 def replies_to_file(file,filename,encoding = 'utf-8'):
     data = pd.DataFrame()
+    missing_files = pd.DataFrame()
     for i in file.index:
-        print("Retrieving replies to: "+str(file.loc[i][2]))
-        date_from = file.loc[i][4]
-        username = file.loc[i][2][1:] #quitando el @
-        data = data.append(get_replies(date_from, username))
+        try:
+            print("Retrieving replies to: "+str(file.loc[i][2]))
+            date_from = file.loc[i][4]
+            username = file.loc[i][2][1:] #quitando el @
+            data = data.append(get_replies(date_from, username))
+        except:
+            print("Senadorx: ", str(file.loc[i][2])+ " sin usuario")
+            missing_files = missing_files.append(file.loc[i][0]) 
 
     data.to_csv(filename, encoding=encoding)
     return data
