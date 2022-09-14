@@ -3,9 +3,9 @@ import twint as tw
 import retrieve
 import read_info
 
-gobernadoras, gobernadores = read_info.read_users('usuarios.csv')
+mujeres, hombres = read_info.read_users('usuarios_completo.csv')
 
-print("Starting with Gobernadoras")
-data_gm = retrieve.replies_to_file(gobernadoras,"gobernadoras_small.csv")
-print("Starting with Gobernadores")
-data_gh = retrieve.replies_to_file(gobernadores,"gobernadores_small.csv")
+print("Starting with Mujeres")
+data_m = retrieve.replies_to_file(mujeres,"Mujeres.csv")
+print("Starting with Hombres")
+data_h = retrieve.replies_to_file(hombres,"Hombres.csv")

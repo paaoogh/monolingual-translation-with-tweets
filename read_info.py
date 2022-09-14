@@ -5,29 +5,29 @@
 import pandas as pd
 
 def read_users(filename):
-    gobernadorxs = pd.read_csv(filename)
-    gobernadoras = pd.DataFrame(columns = gobernadorxs.columns)
-    gobernadores = pd.DataFrame(columns = gobernadorxs.columns)
+    personas = pd.read_csv(filename)
+    mujeres = pd.DataFrame(columns = personas.columns)
+    hombres = pd.DataFrame(columns = personas.columns)
 
-    for i in gobernadorxs.index:
-        if gobernadorxs.loc[i][9]== "M":
-            gobernadoras.loc[i] = gobernadorxs.loc[i]
+    for i in personas.index:
+        if personas.loc[i][9]== "M":
+            mujeres.loc[i] = personas.loc[i]
 
-            day,month,year = gobernadoras.loc[i][4].split('-')
+            day,month,year = mujeres.loc[i][4].split('-')
             if len(year) == 2:
                 year = '20'+year
-            gobernadoras.loc[i][4] = year+'-'+month+'-'+day
+            mujeres.loc[i][4] = year+'-'+month+'-'+day
 
-        elif gobernadorxs.loc[i][9] == "H":
-            gobernadores.loc[i] = gobernadorxs.loc[i]
+        elif personas.loc[i][9] == "H":
+            hombres.loc[i] = personas.loc[i]
 
-            day,month,year = gobernadores.loc[i][4].split('-')
+            year,month,day = hombres.loc[i][4].split('-')
             if len(year) == 2:
                 year = '20'+year
-            gobernadores.loc[i][4] = year+'-'+month+'-'+day
+            hombres.loc[i][4] = year+'-'+month+'-'+day
 
     #Setting index correctly
-    gobernadoras.index = range(len(gobernadoras))
-    gobernadores.index = range(len(gobernadores))
-    return gobernadoras, gobernadores
+    mujeres.index = range(len(mujeres))
+    hombres.index = range(len(hombres))
+    return mujeres, hombres
 
