@@ -2,6 +2,7 @@
 #Universidad Nacional Autonoma de Mexico
 #Tecnologias para la Informacion en Ciencias
 
+from doctest import ELLIPSIS_MARKER
 import pandas as pd
 
 def read_users(filename):
@@ -13,21 +14,22 @@ def read_users(filename):
         if personas.loc[i][9]== "M":
             mujeres.loc[i] = personas.loc[i]
 
-            day,month,year = mujeres.loc[i][4].split('-')
+            year,month,day = mujeres.loc[i][4].split('-')
             if len(year) == 2:
                 year = '20'+year
-            mujeres.loc[i][4] = year+'-'+month+'-'+day
-
+            fecha = year+'-'+month+'-'+day
+            mujeres.at[i,'Fecha de inicio'] = fecha
         elif personas.loc[i][9] == "H":
             hombres.loc[i] = personas.loc[i]
 
             year,month,day = hombres.loc[i][4].split('-')
             if len(year) == 2:
                 year = '20'+year
-            hombres.loc[i][4] = year+'-'+month+'-'+day
 
+            fecha = year+'-'+month+'-'+day
+            hombres.at[i,"Fecha de inicio"] = fecha
+    
     #Setting index correctly
     mujeres.index = range(len(mujeres))
     hombres.index = range(len(hombres))
     return mujeres, hombres
-
