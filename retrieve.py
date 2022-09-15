@@ -6,6 +6,7 @@ import twint as tw
 import nest_asyncio
 import pandas as pd
 import read_info
+from twint.token import RefreshTokenException
 
 missing_files = pd.DataFrame()
 
