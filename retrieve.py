@@ -36,13 +36,15 @@ def get_followers(username): #returns list of followers of a username
 def replies_to_file(file,filename,encoding = 'utf-8'):
     data = pd.DataFrame()
     missing_files = pd.DataFrame()
+
     for i in file.index:
         print("Retrieving replies to: "+str(file.loc[i][0]))
         date_from = file.at[i,"Fecha de inicio"]
 
         try :
             username = str(file.loc[i][0][1:]) #quitando el @
-            data = data.append(get_replies(date_from, username))
+
+            data = pd.concat(data, get_replies(date_from, username))
         except TypeError:
             print("Usuario: ", str(file.loc[i][0])+ " sin usuario")
             missing_files = missing_files.append(file.loc[i][0])
