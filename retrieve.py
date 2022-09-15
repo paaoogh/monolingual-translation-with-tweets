@@ -39,9 +39,10 @@ def replies_to_file(file,filename,encoding = 'utf-8'):
         print("Retrieving replies to: "+str(file.loc[i][0]))
         date_from = file.at[i,"Fecha de inicio"]
         #date_from = file.loc[i][4]
-        username = str(file.loc[i]["Usuario"][1:]) #quitando el @
+        print(file.loc[i]["Usuario"][1:])
+        username = str(file.loc[i][0][1:]) #quitando el @
         if username == "nan":
-            print("Usuario: ", str(file.loc[i][2])+ " sin usuario")
+            print("Usuario: ", str(file.loc[i][0])+ " sin usuario")
             missing_files = missing_files.append(file.loc[i][0])
             continue 
         else:
