@@ -44,7 +44,8 @@ def replies_to_file(file,filename,encoding = 'utf-8'):
             data = data.append(get_replies(date_from, username))
         except:
             print("Usuario: ", str(file.loc[i][2])+ " sin usuario")
-            missing_files = missing_files.append(file.loc[i][0]) 
+            missing_files = missing_files.append(file.loc[i][0])
+            continue 
 
     data.to_csv(filename, encoding=encoding)
     return data
