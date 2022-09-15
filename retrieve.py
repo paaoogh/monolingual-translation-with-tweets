@@ -38,8 +38,7 @@ def replies_to_file(file,filename,encoding = 'utf-8'):
     for i in file.index:
         print("Retrieving replies to: "+str(file.loc[i][0]))
         date_from = file.at[i,"Fecha de inicio"]
-        print(file.loc[i]["Usuario"][1:])
-        
+
         try :
             username = str(file.loc[i][0][1:]) #quitando el @
             data = data.append(get_replies(date_from, username))
