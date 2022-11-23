@@ -43,7 +43,7 @@ def replies_to_file(file,filename,encoding = 'utf-8'):
 
         try :
             username = str(file.loc[i][0][1:]) #quitando el @
-
+            print(get_replies(date_from, username))
             data = pd.concat(data, get_replies(date_from, username))
         except TypeError:
             print("Usuario: ", str(file.loc[i][0])+ " sin usuario")
