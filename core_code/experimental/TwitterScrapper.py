@@ -1,3 +1,8 @@
+# pylint: disable=invalid-name
+"""This is a twitter scrapper class given a CSV file with users, 
+names and starting date with twint API.
+"""
+
 import logging
 import os
 import pandas as pd
@@ -14,6 +19,11 @@ __all__ = ["TwitterScrapper"]
 
 
 class TwitterScrapper:
+    """Given a set of parameters and CSV file with twitter usernames and dates,
+    This class performs tweets scrapping processes using twint and saves the
+    results into another file.
+    """
+
     FILE_NAME = "user_file"
     USER_COLUMNS_ACCEPTED = ["Usuario", "usuario", "User", "user"]
     SAVING_EXTENSION = "file_to_save_extension"
@@ -32,7 +42,17 @@ class TwitterScrapper:
         self.users = pd.read_csv(self.user_file)
         self.users.index = range(len(self.users))
 
-    def preprocess(self, df, f_out) -> pd.DataFrame:
+    def preprocess(self, df: pd.Dataframe, f_out: str) -> pd.DataFrame:
+        """Checks if there is a user name. If no account found,
+        the registry will be saved at a file with missing accounts.
+
+        Args:
+            df (DataFrame): Users initial DataFrame
+            f_out (str): out filename with only existing accounts
+
+        Returns:
+            pd.DataFrame:only existing accounts registries.
+        """
         missing = df[df["Usuario"].isnull() is True]
         df = df[df["Usuario"].isnull() is False]
         name = f_out[15:-4] + "_missing.csv"
@@ -42,6 +62,15 @@ class TwitterScrapper:
     @check_dataframe_integrity
     @check_date_integrity_dataframe
     def get_replies(self, date_since: str, username: str) -> pd.DataFrame:
+        """Fetches replies with twint API
+
+        Args:
+            date_since (str): start date to parse from
+            username (str): username to fetch from Twitter
+
+        Returns:
+            pd.DataFrame: Dataframe with replies
+        """
         replies = tw.Config()
         replies.Since = date_since
         replies.Pandas = True
@@ -50,7 +79,17 @@ class TwitterScrapper:
         tw.run.Search(replies)
         return tw.storage.panda.Tweets_df
 
-    def save_replies(self, file: str, filename: str, encoding) -> pd.DataFrame:
+    def save_replies(self, file: str, filename: str, encoding: str) -> pd.DataFrame:
+        """This calls the replies fetching and saves the replies into CSV.
+
+        Args:
+            file (str): name of file to get registries
+            filename (str): output file name
+            encoding (str): expected encoding, defaults to UTF-8
+
+        Returns:
+            pd.DataFrame: Outpus the replies within a DataFrame
+        """
         columnas = file.columns
         data = pd.DataFrame(columns=columnas)
 
@@ -68,6 +107,7 @@ class TwitterScrapper:
 
     @check_dataframe_integrity
     def main_loop(self):
+        """Main loog pre-processes a file and gets the replies within a new file."""
         logging.info(f"Leyendo {self.user_file}")
         existing_users = self.preprocess(self.users, self.file_to_save)
         self.save_replies(existing_users, self.file_to_save, self.encoding)

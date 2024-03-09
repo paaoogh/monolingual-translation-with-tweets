@@ -1,3 +1,5 @@
+"""Decorators for sanity checks."""
+
 import functools
 from dataclasses import dataclass
 from pandas import DataFrame
@@ -6,6 +8,8 @@ import pandas as pd
 
 @dataclass
 class MessageError:
+    """Messages for error rising."""
+
     missing_name_column: str = (
         "Dataframe must have name column. Check accepted format on documentation."
     )
@@ -20,6 +24,15 @@ class MessageError:
 
 
 def check_dataframe_integrity(func):
+    """Basic sanity checks for dataframe
+
+    Raises:
+        ValueError: Not valid name columns
+        ValueError: Not valid date columns
+        ValueError: Not valid datatype for name columns
+        ValueError: Empty dataframes
+        ValueError: No date at columns
+    """
     errors = MessageError()
     accepted_user_columns = ["Usuario", "usuario", "User", "user"]
     accepted_name_columns = ["Name", "name", "nombre", "nombre"]
@@ -48,6 +61,7 @@ def check_dataframe_integrity(func):
 
 
 def check_date_integrity_dataframe(func):
+    """Checks date column can be converted to date dataype"""
 
     @functools.wraps(func)
     def wrapper_date_format(df: DataFrame, date_column: str, *args, **kwargs):
